@@ -20,7 +20,6 @@ void	construct(t_all *a)
 		exit(0);
 	if (!(a->win = mlx_new_window(a->mlx, a->win_x, a->win_y, "window")))
 		exit(0);
-	a->toggle = 0;
 }
 
 void	destruct(t_all *a)

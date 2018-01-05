@@ -20,6 +20,7 @@ HEADER = wolf3d.h
 OBJECTS = wolf3d.o \
 			construct_destruct.o \
 			move.o \
+			bresenham.c \
 
 .PHONY : clean all fclean re
 
@@ -49,3 +50,6 @@ construct_destruct.o : construct_destruct.c $(HEADER)
 
 move.o : move.c $(HEADER)
 	$(CC) $(CFLAGS) -c move.c wolf3d.h
+
+bresenham.o : bresenham.c $(HEADER)
+	$(CC) $(CFLAGS) -c bresenham.c wolf3d.h

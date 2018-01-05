@@ -16,30 +16,34 @@ void			move(t_all *a, int keycode)
 {
 	if (keycode == 123)
 	{
-		  double oldDirX = dirX;
-		  dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-		  dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-		  double oldPlaneX = planeX;
-		  planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-		  planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+		  double oldDirX = a->dirX;
+		  a->dirX = a->dirX * cos(a->rotSpeed) - a->dirY * sin(a->rotSpeed);
+		  a->dirY = oldDirX * sin(a->rotSpeed) + a->dirY * cos(a->rotSpeed);
+		  double oldPlaneX = a->planeX;
+		  a->planeX = a->planeX * cos(a->rotSpeed) - a->planeY * sin(a->rotSpeed);
+		  a->planeY = oldPlaneX * sin(a->rotSpeed) + a->planeY * cos(a->rotSpeed);
 	}
 	else if (keycode == 124)
 	{
-		  double oldDirX = dirX;
-		  dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-		  dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-		  double oldPlaneX = planeX;
-		  planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-		  planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+		  double oldDirX = a->dirX;
+		  a->dirX = a->dirX * cos(-a->rotSpeed) - a->dirY * sin(-a->rotSpeed);
+		  a->dirY = oldDirX * sin(-a->rotSpeed) + a->dirY * cos(-a->rotSpeed);
+		  double oldPlaneX = a->planeX;
+		  a->planeX = a->planeX * cos(-a->rotSpeed) - a->planeY * sin(-a->rotSpeed);
+		  a->planeY = oldPlaneX * sin(-a->rotSpeed) + a->planeY * cos(-a->rotSpeed);
 	}
 	else if (keycode == 125)
 	{
-		if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-  		if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
+		if(!(worldMap[(int)(a->posX - a->dirX * a->moveSpeed)][(int)a->posY]))
+			a->posX -= a->dirX * a->moveSpeed;
+  		if(!(worldMap[(int)a->posX][(int)(a->posY - a->dirY * a->moveSpeed)]))
+  			a->posY -= a->dirY * a->moveSpeed;
 	}
 	else if (keycode == 126)
 	{
-		if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
- 		if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
+		if(!(worldMap[(int)(a->posX + a->dirX * a->moveSpeed)][(int)a->posY]))
+			a->posX += a->dirX * a->moveSpeed;
+ 		if(!(worldMap[(int)a->posX][(int)(a->posY + a->dirY * a->moveSpeed)]))
+ 			a->posY += a->dirY * a->moveSpeed;
 	}
 }
