@@ -32,8 +32,9 @@ typedef struct		s_all
 
 void				construct(t_all *a);
 void				destruct(t_all *a);
-void				proper_exit(t_all *a);
-int					mouse_exit(void);
+void				create_new_image(t_all *a);
+void				image_to_window_and_destroy(t_all *a);
+int					proper_exit(t_all *a);
 
 void				move(t_all *a, int keycode);
 
