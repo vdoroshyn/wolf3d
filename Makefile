@@ -20,7 +20,7 @@ HEADER = wolf3d.h
 OBJECTS = wolf3d.o \
 			construct_destruct.o \
 			move.o \
-			bresenham.c \
+			bresenham.o \
 
 .PHONY : clean all fclean re
 

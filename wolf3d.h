@@ -60,6 +60,8 @@ typedef struct		s_all
 	double moveSpeed;
 	double rotSpeed;
 
+	int	is_moving;
+	int is_rotating;
 }					t_all;
 
 typedef struct		s_color
@@ -92,8 +94,13 @@ void				create_new_image(t_all *a);
 void				image_to_window_and_destroy(t_all *a);
 int					proper_exit(t_all *a);
 
-void				move(t_all *a, int keycode);
+void				move(t_all *a, int flag);
+void			rotate(t_all *a, int flag);
 
 void				color_one_pixel(t_all *a, int pixel, t_color color);
+void	draw(t_all *a, int x);
+
+int		reload_window(t_all *a);
+void				load_window(t_all *a);
 // void			segment(t_br1 coord, t_all a, t_color color);
 #endif
