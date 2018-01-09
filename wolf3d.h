@@ -19,6 +19,8 @@
 
 typedef struct		s_all
 {
+	int				map_x;
+	int				map_y;
 	void			*mlx;
 	void			*win;
 	void			*img;

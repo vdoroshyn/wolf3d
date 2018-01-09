@@ -17,9 +17,9 @@ void	construct(t_all *a)
 	a->win_x = 800;
 	a->win_y = 600;
 	if (!(a->mlx = mlx_init()))
-		exit(0);
+		exit(4);
 	if (!(a->win = mlx_new_window(a->mlx, a->win_x, a->win_y, "window")))
-		exit(0);
+		exit(5);
 }
 
 void	destruct(t_all *a)
