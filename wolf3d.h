@@ -21,6 +21,9 @@ typedef struct		s_all
 {
 	int				map_x;
 	int				map_y;
+	char			**map;
+	int				win_x;
+	int				win_y;
 	void			*mlx;
 	void			*win;
 	void			*img;
@@ -28,9 +31,7 @@ typedef struct		s_all
 	int				bpp;
 	int				size_line;
 	int				endian;
-	int				win_x;
-	int				win_y;
-	
+
 	double			dirX;
 	double			dirY;
 	double			planeX;
@@ -96,13 +97,19 @@ void				create_new_image(t_all *a);
 void				image_to_window_and_destroy(t_all *a);
 int					proper_exit(t_all *a);
 
+void				read_file_1(char *str, t_all *a);
+void				create_pointer_map_array(t_all *a);
+void				read_file_2(char *str, t_all *a);
+int					are_all_map_borders_valid(t_all *a);
+int					is_player(char c);
+
 void				move(t_all *a, int flag);
-void			rotate(t_all *a, int flag);
+void				rotate(t_all *a, int flag);
 
 void				color_one_pixel(t_all *a, int pixel, t_color color);
-void	draw(t_all *a, int x);
+void				draw(t_all *a, int x);
 
-int		reload_window(t_all *a);
+int					reload_window(t_all *a);
 void				load_window(t_all *a);
-// void			segment(t_br1 coord, t_all a, t_color color);
+
 #endif

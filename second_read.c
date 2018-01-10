@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation1.c                                      :+:      :+:    :+:   */
+/*   second_read.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vdoroshy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,7 +15,7 @@
 /*
 **open the fd first time
 **read line by line comparing their size
-**check whether each node consists of numbers only or letter P (no more than 9 symbols)
+**check whether each node consists of numbers only or letter P
 **check whether there is one and only one letter P on the map
 
 **open the fd second time
@@ -24,87 +24,78 @@
 **init player position in the struct and put 0 in the array
 */
 
-static int		is_player(char c, int *player_count)
-{
-	if (c != 'P')
-	{
-		return (0);
-	}
-	return (1);
-}
-
-static int		ft_validate(char *line, int *player_count)
+static void		null_pointer_map_array(t_all *a)
 {
 	int			i;
-	int			number_of_symbols;
 
 	i = 0;
-	number_of_symbols = 0;
-	while (line[i] != '\0')
+	while (i <= a->map_y)
 	{
-		if (is_player(line[i]))
-		{
-			*player_count += 1;
-		}
-		else if (!ft_isdigit(line[i]))
-		{
-			return (0);
-		}
-		++number_of_symbols;
+		a->map[i] = NULL;
 		++i;
 	}
-	return (number_of_symbols);
 }
 
-static int		gnl_validate(int fd, int *player_count, t_all *a)
+void			create_pointer_map_array(t_all *a)
 {
-	int			check;
-	int			count;
+	a->map = (char **)malloc(sizeof(char *) * (a->map_y + 1));
+	if (a->map == NULL)
+	{
+		exit(5);
+	}
+	null_pointer_map_array(a);	
+}
+
+static void			initialize_player(t_all *a)
+{
+	int			i;
+	int			j;
+
+	i = 0;
+	while (i < a->map_y)
+	{
+		j = 0;
+		while (j < a->map_x)
+		{
+			if (is_player(a->map[i][j]))
+			{
+				a->map[i][j] = '0';
+				a->posX = j;
+				a->posY = i;
+				return ;
+			}
+			++j;
+		}
+		++i;
+	}
+}
+
+void			read_file_2(char *str, t_all *a)
+{
+	int			fd;
+	int			i;
 	char		*line;
 
-	check = 0;
-	while (get_next_line(fd, &line) > 0)
-	{
-		check = 1;
-		a->map_y += 1;
-		count = ft_validate(line, player_count);
-		if (a->map_x == 0)
-		{
-			a->map_x = count;
-		}
-		if (a->map_x != count)
-		{
-			write(2, "the map is not valid\n", 21);
-			free(line);
-			close(fd);
-			exit(3);
-		}
-		ft_strdel(&line);
-	}
-	return (check);
-}
-
-void			get_map_size(char *str, t_all *a)
-{
-	int			check;
-	int			fd;
-	int			player_count;
-
-	a->map_x = 0;
-	a->map_y = 0;
-	player_count = 0;
+	i = 0;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
 	{
 		perror("There was an error with the file descriptor");
-		exit(1);
+		exit(6);
 	}
-	check = gnl_validate(fd, &player_count, a);
-	if (check == 0)
+	i = 0;
+	while (i < a->map_y)
 	{
-		perror("There is nothing in the file");
-		close(fd);
-		exit(2);
+		get_next_line(fd, &line);
+		a->map[i] = line;
+		++i;
 	}
+	if (!are_all_map_borders_valid(a))
+	{
+		free_2d_array((void **)a->map, a->map_y);
+		write(2, "the map is not valid\n", 21);
+		exit(7);
+	}
+	initialize_player(a);
 	close(fd);
 }

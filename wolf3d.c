@@ -257,6 +257,19 @@ int main(int argc, char **argv)
 {
 	t_all a;
 
+	a.map = NULL;
+	if (argc != 2)
+	{
+		write(1, "usage: ./wolf3d file_with_map\n", 30);
+		exit(1);
+	}
+	read_file_1(argv[1], &a);
+	create_pointer_map_array(&a);
+	read_file_2(argv[1], &a);
+	for (int k = 0; k <= a.map_y; ++k)
+		printf("%s\n", a.map[k]);
+	exit(1);
+
 	construct(&a);
 	a.dirX = -1;
 	a.dirY = 0;
@@ -269,6 +282,7 @@ int main(int argc, char **argv)
 
 	a.is_rotating = 0;
 	a.is_moving = 0;
+
 	// double posX = 22, posY = 12;  //x and y start position
 	// double dirX = -1, dirY = 0; //initial direction vector
 	// double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane

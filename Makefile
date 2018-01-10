@@ -21,6 +21,9 @@ OBJECTS = wolf3d.o \
 			construct_destruct.o \
 			move.o \
 			bresenham.o \
+			first_read.o \
+			second_read.o \
+			map_borders.o \
 
 .PHONY : clean all fclean re
 
@@ -53,3 +56,12 @@ move.o : move.c $(HEADER)
 
 bresenham.o : bresenham.c $(HEADER)
 	$(CC) $(CFLAGS) -c bresenham.c wolf3d.h
+
+first_read.o : first_read.c $(HEADER)
+	$(CC) $(CFLAGS) -c first_read.c wolf3d.h
+
+second_read.o : second_read.c $(HEADER)
+	$(CC) $(CFLAGS) -c second_read.c wolf3d.h
+
+map_borders.o : map_borders.c $(HEADER)
+	$(CC) $(CFLAGS) -c map_borders.c wolf3d.h
