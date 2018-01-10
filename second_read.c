@@ -46,7 +46,7 @@ void			create_pointer_map_array(t_all *a)
 	null_pointer_map_array(a);	
 }
 
-static void			initialize_player(t_all *a)
+static void			initialize_player_position(t_all *a)
 {
 	int			i;
 	int			j;
@@ -60,14 +60,29 @@ static void			initialize_player(t_all *a)
 			if (is_player(a->map[i][j]))
 			{
 				a->map[i][j] = '0';
-				a->posX = j;
-				a->posY = i;
+				a->posX = i;
+				a->posY = j;
 				return ;
 			}
 			++j;
 		}
 		++i;
 	}
+}
+
+static void		free_malloced_space(t_all *a)
+{
+	int			i;
+
+	i = 0;
+	while (a->map[i] != NULL)
+	{
+		free(a->map[i]);
+		a->map[i] = NULL;
+		++i;
+	}
+	free(a->map);
+	a->map = NULL;
 }
 
 void			read_file_2(char *str, t_all *a)
@@ -85,8 +100,12 @@ void			read_file_2(char *str, t_all *a)
 	}
 	i = 0;
 	while (i < a->map_y)
-	{
-		get_next_line(fd, &line);
+	{	
+		if (get_next_line(fd, &line) == -1)
+		{
+			free_malloced_space(a);
+			exit(7);
+		}
 		a->map[i] = line;
 		++i;
 	}
@@ -94,8 +113,8 @@ void			read_file_2(char *str, t_all *a)
 	{
 		free_2d_array((void **)a->map, a->map_y);
 		write(2, "the map is not valid\n", 21);
-		exit(7);
+		exit(8);
 	}
-	initialize_player(a);
+	initialize_player_position(a);
 	close(fd);
 }
