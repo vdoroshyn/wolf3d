@@ -266,9 +266,6 @@ int main(int argc, char **argv)
 	read_file_1(argv[1], &a);
 	create_pointer_map_array(&a);
 	read_file_2(argv[1], &a);
-	for (int k = 0; k <= a.map_y; ++k)
-		printf("%s\n", a.map[k]);
-	// exit(1);
 
 	construct(&a);
 	a.dirX = -1;

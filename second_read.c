@@ -70,7 +70,7 @@ static void			initialize_player_position(t_all *a)
 	}
 }
 
-static void		free_malloced_space(t_all *a)
+void		free_map(t_all *a)
 {
 	int			i;
 
@@ -103,7 +103,7 @@ void			read_file_2(char *str, t_all *a)
 	{	
 		if (get_next_line(fd, &line) == -1)
 		{
-			free_malloced_space(a);
+			free_map(a);
 			exit(7);
 		}
 		a->map[i] = line;

@@ -95,6 +95,7 @@ void				construct(t_all *a);
 void				destruct(t_all *a);
 void				create_new_image(t_all *a);
 void				image_to_window_and_destroy(t_all *a);
+void		free_map(t_all *a);
 int					proper_exit(t_all *a);
 
 void				read_file_1(char *str, t_all *a);
