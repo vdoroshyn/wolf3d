@@ -63,6 +63,7 @@ typedef struct		s_all
 	double moveSpeed;
 	double rotSpeed;
 
+	int is_sprinting;
 	int	is_moving;
 	int is_rotating;
 }					t_all;

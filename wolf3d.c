@@ -46,6 +46,8 @@
 
 int		key_press(int keycode, t_all *a)
 {
+	printf("%d\n", keycode);
+	fflush(stdout);
 	if (keycode == 53)
 		proper_exit(a);
 	else if (keycode == 125)
@@ -56,6 +58,8 @@ int		key_press(int keycode, t_all *a)
 		a->is_rotating = 1;
 	else if (keycode == 124)
 		a->is_rotating = 2;
+	else if (keycode == 257)
+		a->is_sprinting = 1;
 	reload_window(a);
 	return (0);
 }
@@ -66,12 +70,18 @@ int		key_release(int keycode, t_all *a)
 		a->is_moving = 0;
 	else if (keycode == 123 || keycode == 124)
 		a->is_rotating = 0;
+	else if (keycode == 257)
+		a->is_sprinting = 0;
 	reload_window(a);
 	return (0);
 }
 
 int		reload_window(t_all *a)
 {
+	if (a->is_sprinting == 1)
+		a->moveSpeed = 0.2;
+	else
+		a->moveSpeed = 0.1;
 	move(a, a->is_moving);
 	rotate(a, a->is_rotating);
 	load_window(a);
@@ -240,24 +250,13 @@ void			rotate(t_all *a, int flag)
 	}
 }
 
-int		my_key_func1(int keycode, t_all *a)
-{
-	if (keycode == 53)
-		proper_exit(a);
-	else if (keycode == 123 || keycode == 124
-		|| keycode == 125 || keycode == 126)
-	{
-		// printf("%d\n", keycode);
-		move(a, keycode);
-	}
-	return (0);
-}
-
 int main(int argc, char **argv)
 {
 	t_all a;
 
 	a.map = NULL;
+	a.win_x = 800;
+	a.win_y = 600;
 	if (argc != 2)
 	{
 		write(1, "usage: ./wolf3d file_with_map\n", 30);
@@ -279,7 +278,7 @@ int main(int argc, char **argv)
 
 	a.is_rotating = 0;
 	a.is_moving = 0;
-
+	a.is_sprinting = 0;
 	// double posX = 22, posY = 12;  //x and y start position
 	// double dirX = -1, dirY = 0; //initial direction vector
 	// double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
