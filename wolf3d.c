@@ -46,8 +46,6 @@
 
 int		key_press(int keycode, t_all *a)
 {
-	printf("%d\n", keycode);
-	fflush(stdout);
 	if (keycode == 53)
 		proper_exit(a);
 	else if (keycode == 125)
@@ -91,7 +89,6 @@ int		reload_window(t_all *a)
 void				load_window(t_all *a)
 {
 	create_new_image(a);
-
 	for(int x = 0; x < a->win_x; x++)
 	{
 		// //calculate ray position and direction
@@ -208,6 +205,7 @@ void				load_window(t_all *a)
 		draw(a, x);
 	}
 	image_to_window_and_destroy(a);
+	load_gun(a);
 }
 
 void			move(t_all *a, int flag)
@@ -250,6 +248,38 @@ void			rotate(t_all *a, int flag)
 	}
 }
 
+void	load_textures(t_all *a)
+{
+	void *textures[6];
+	int width;
+	int height;
+
+	textures[0] = mlx_xpm_file_to_image(a->mlx, "textures/wood.xpm", &width, &height);
+	textures[1] = mlx_xpm_file_to_image(a->mlx, "textures/redbrick.xpm", &width, &height);
+	textures[2] = mlx_xpm_file_to_image(a->mlx, "textures/greystone.xpm", &width, &height);
+	textures[3] = mlx_xpm_file_to_image(a->mlx, "textures/purplestone.xpm", &width, &height);
+	textures[4] = mlx_xpm_file_to_image(a->mlx, "textures/colorstone.xpm", &width, &height);
+	textures[5] = mlx_xpm_file_to_image(a->mlx, "textures/mossy.xpm", &width, &height);
+
+	a->wood = mlx_get_data_addr(textures[0], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->redbrick = mlx_get_data_addr(textures[1], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->greystone = mlx_get_data_addr(textures[2], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->purplestone = mlx_get_data_addr(textures[3], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->colorstone = mlx_get_data_addr(textures[4], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->mossy = mlx_get_data_addr(textures[5], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+}
+
+void		load_gun(t_all *a)
+{
+	void	*gun_texture[1];
+	int gun_width;
+	int gun_height;
+
+	gun_texture[0] = mlx_xpm_file_to_image(a->mlx, "textures/gun.xpm", &gun_width, &gun_height);
+	mlx_put_image_to_window(a->mlx, a->win, gun_texture[0], (a->win_x - gun_width) / 4 * 3, a->win_y - gun_height);
+	mlx_destroy_image(a->mlx, gun_texture[0]);
+}
+
 int main(int argc, char **argv)
 {
 	t_all a;
@@ -279,6 +309,7 @@ int main(int argc, char **argv)
 	a.is_rotating = 0;
 	a.is_moving = 0;
 	a.is_sprinting = 0;
+	
 	// double posX = 22, posY = 12;  //x and y start position
 	// double dirX = -1, dirY = 0; //initial direction vector
 	// double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane

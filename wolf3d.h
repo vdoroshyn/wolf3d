@@ -66,6 +66,18 @@ typedef struct		s_all
 	int is_sprinting;
 	int	is_moving;
 	int is_rotating;
+
+	int				tex_bpp;
+	int				tex_size_line;
+	int				tex_endian;
+	char			*wood;
+	char			*redbrick;
+	char			*greystone;
+	char			*purplestone;
+	char			*colorstone;
+	char			*mossy;
+	char			*gun;
+
 }					t_all;
 
 typedef struct		s_color
@@ -113,5 +125,8 @@ void				draw(t_all *a, int x);
 
 int					reload_window(t_all *a);
 void				load_window(t_all *a);
+void				load_gun(t_all *a);
+
+void	load_textures(t_all *a);
 
 #endif

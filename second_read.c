@@ -60,8 +60,8 @@ static void			initialize_player_position(t_all *a)
 			if (is_player(a->map[i][j]))
 			{
 				a->map[i][j] = '0';
-				a->posX = i;
-				a->posY = j;
+				a->posX = i + 0.5;
+				a->posY = j + 0.5;
 				return ;
 			}
 			++j;
