@@ -54,6 +54,9 @@ typedef struct		s_all
 	double deltaDistY;
 	double perpWallDist;
 
+	double wallX;
+	int texX;
+
 	int stepX;
 	int stepY;
 	int hit;

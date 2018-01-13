@@ -38,69 +38,126 @@ void	draw(t_all *a, int x)
 	int drawEnd = lineHeight / 2 + a->win_y / 2;
 	if(drawEnd >= a->win_y)drawEnd = a->win_y - 1;
 
-	int i = 0;
-
-	while (i < a->win_y)
-	{	
+	for(int y = drawStart; y < drawEnd; y++)
+	{
 		int pixel;
 		t_color color;
 
-		pixel = x * 4 + i * a->size_line;
-		if (i < drawStart)
+		pixel = x * 4 + y * a->size_line;
+		int d = y * 256 - a->win_y * 128 + lineHeight * 128;  //256 and 128 factors to avoid floats
+		int texY = ((d * 64) / lineHeight) / 256;
+
+		if (a->side == 0)
 		{
-			color.transp = 0;
-			color.red = 000;
-			color.green = 127;
-			color.blue = 200;
-			color_one_pixel(a, pixel, color);
-		}
-		if (i >= drawStart && i <= drawEnd)
-		{
-			if (a->side == 0)
+			if (a->stepX > 0)
 			{
-				if (a->stepX > 0)
-				{
-					color.transp = 0;
-					color.red = 255;
-					color.green = 255;
-					color.blue = 255;
-				}
-				else
-				{
-					color.transp = 0;
-					color.red = 192;
-					color.green = 192;
-					color.blue = 192;
-				}
+				color.transp = 0;
+				color.red = a->wood[(64 * texY + a->texX) * 4 + 2];
+				color.green = a->wood[((64 * texY + a->texX) * 4) + 1];
+				color.blue = a->wood[((64 * texY + a->texX) * 4) + 0];
+				// printf("%u\n", color.red);
+				// printf("%u\n", color.green);
+				// printf("%u\n", color.blue);
+				//exit(0);
 			}
 			else
 			{
-				if (a->stepY > 0)
-				{
-					color.transp = 0;
-					color.red = 127;
-					color.green = 127;
-					color.blue = 127;
-				}
-				else {
-					color.transp = 0;
-					color.red = 64;
-					color.green = 64;
-					color.blue = 64;
-				}
-
+				color.transp = 0;
+				color.red = a->mossy[(64 * texY + a->texX) * 4 + 2];
+				color.green = a->mossy[((64 * texY + a->texX) * 4) + 1];
+				color.blue = a->mossy[((64 * texY + a->texX) * 4) + 0];
 			}
-			color_one_pixel(a, pixel, color);
 		}
-		if (i > drawEnd)
-		{	
-			color.transp = 0;
-			color.red = 55;
-			color.green = 55;
-			color.blue = 25;
-			color_one_pixel(a, pixel, color);
+		else
+		{
+			if (a->stepY > 0)
+			{
+				color.transp = 0;
+				color.red = a->greystone[(64 * texY + a->texX) * 4 + 2];
+				color.green = a->greystone[((64 * texY + a->texX) * 4) + 1];
+				color.blue = a->greystone[((64 * texY + a->texX) * 4) + 0];
+				// color.transp = 0;
+				// color.red = a->redbrick[(64 * texY + a->texX) * 4 + 2];
+				// color.green = a->redbrick[((64 * texY + a->texX) * 4) + 1];
+				// color.blue = a->redbrick[((64 * texY + a->texX) * 4) + 0];
+			}
+			else
+			{
+				color.transp = 0;
+				color.red = a->colorstone[(64 * texY + a->texX) * 4 + 2];
+				color.green = a->colorstone[((64 * texY + a->texX) * 4) + 1];
+				color.blue = a->colorstone[((64 * texY + a->texX) * 4) + 0];
+			}
 		}
-		++i;
+
+		//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+		// if(side == 1) color = (color >> 1) & 8355711;
+		color_one_pixel(a, pixel, color);
 	}
+
+	// int i = 0;
+
+	// while (i < a->win_y)
+	// {	
+	// 	int pixel;
+	// 	t_color color;
+
+	// 	pixel = x * 4 + i * a->size_line;
+	// 	if (i < drawStart)
+	// 	{
+	// 		color.transp = 0;
+	// 		color.red = 000;
+	// 		color.green = 127;
+	// 		color.blue = 200;
+	// 		color_one_pixel(a, pixel, color);
+	// 	}
+	// 	if (i >= drawStart && i <= drawEnd)
+	// 	{
+	// 		if (a->side == 0)
+	// 		{
+	// 			if (a->stepX > 0)
+	// 			{
+	// 				color.transp = 0;
+	// 				color.red = 255;
+	// 				color.green = 255;
+	// 				color.blue = 255;
+	// 			}
+	// 			else
+	// 			{
+	// 				color.transp = 0;
+	// 				color.red = 192;
+	// 				color.green = 192;
+	// 				color.blue = 192;
+	// 			}
+	// 		}
+	// 		else
+	// 		{
+	// 			if (a->stepY > 0)
+	// 			{
+	// 				color.transp = 0;
+	// 				color.red = 127;
+	// 				color.green = 127;
+	// 				color.blue = 127;
+	// 			}
+	// 			else {
+	// 				color.transp = 0;
+	// 				color.red = 64;
+	// 				color.green = 64;
+	// 				color.blue = 64;
+	// 			}
+
+	// 		}
+	// 		color_one_pixel(a, pixel, color);
+	// 	}
+	// 	if (i > drawEnd)
+	// 	{	
+	// 		color.transp = 0;
+	// 		color.red = 55;
+	// 		color.green = 55;
+	// 		color.blue = 25;
+	// 		color_one_pixel(a, pixel, color);
+	// 	}
+	// 	++i;
+	// }
 
 }

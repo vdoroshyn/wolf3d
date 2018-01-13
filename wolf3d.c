@@ -174,6 +174,19 @@ void				load_window(t_all *a)
 		else           a->perpWallDist = (a->mapY - a->rayPosY + (1 - a->stepY) / 2) / a->rayDirY;
 
 
+		//texturing calculations
+		//int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
+
+		//calculate value of wallX
+		//double wallX; //where exactly the wall was hit
+		if (a->side == 0) a->wallX = a->rayPosY + a->perpWallDist * a->rayDirY;
+		else           a->wallX = a->rayPosX + a->perpWallDist * a->rayDirX;
+		a->wallX -= floor((a->wallX));
+
+		//x coordinate on the texture
+		a->texX = (int)(a->wallX * (double)64);
+		if(a->side == 0 && a->rayDirX > 0) a->texX = 64 - a->texX - 1;
+		if(a->side == 1 && a->rayDirY < 0) a->texX = 64 - a->texX - 1;
 
 		// //choose wall color
 		// ColorRGB color;
