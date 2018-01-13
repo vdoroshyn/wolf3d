@@ -223,18 +223,19 @@ void				load_window(t_all *a)
 
 void			move(t_all *a, int flag)
 {
+	//TODO *3
 	if (flag == 1)
 	{
-		if((a->map[(int)(a->posX - a->dirX * a->moveSpeed)][(int)a->posY]) == '0')
+		if((a->map[(int)(a->posX - (a->dirX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
 			a->posX -= a->dirX * a->moveSpeed;
-  		if((a->map[(int)a->posX][(int)(a->posY - a->dirY * a->moveSpeed)]) == '0')
+  		if((a->map[(int)a->posX][(int)(a->posY - (a->dirY * a->moveSpeed) * 3)]) == '0')
   			a->posY -= a->dirY * a->moveSpeed;
 	}
 	else if (flag == 2)
 	{
-		if((a->map[(int)(a->posX + a->dirX * a->moveSpeed)][(int)a->posY]) == '0')
+		if((a->map[(int)(a->posX + (a->dirX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
 			a->posX += a->dirX * a->moveSpeed;
- 		if((a->map[(int)a->posX][(int)(a->posY + a->dirY * a->moveSpeed)]) == '0')
+ 		if((a->map[(int)a->posX][(int)(a->posY + (a->dirY * a->moveSpeed) * 3)]) == '0')
  			a->posY += a->dirY * a->moveSpeed;
 	}
 }
