@@ -12,9 +12,9 @@
 
 #include "wolf3d.h"
 
-static int		is_zero(char c)
+static int		is_not_wall(char c)
 {
-	if (c == '0')
+	if (c == '0' || c == 'P')
 	{
 		return (1);
 	}
@@ -28,7 +28,7 @@ static int		is_border_valid(char *str)
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if (is_zero(str[i]))
+		if (is_not_wall(str[i]))
 		{
 			return (0);
 		}
@@ -53,7 +53,7 @@ static int		are_right_left_borders_valid(t_all *a)
 	i = 0;
 	while (i < a->map_y)
 	{
-		if (is_zero(a->map[i][0]) || is_zero(a->map[i][a->map_x - 1]))
+		if (is_not_wall(a->map[i][0]) || is_not_wall(a->map[i][a->map_x - 1]))
 		{
 			return (0);
 		}

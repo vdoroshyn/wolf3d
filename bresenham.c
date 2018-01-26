@@ -145,38 +145,47 @@ void	draw(t_all *a, int x)
 		floorTexY = (int)(currentFloorY * 64) % 64;
 
 		//floor
-		//buffer[y][x] = (texture[3][64 * floorTexY + floorTexX] >> 1) & 8355711;
-		//ceiling (symmetrical!)
 		pixel = x * 4 + y * a->size_line;
 		color.transp = 0;
 		color.red = a->purplestone[(64 * floorTexY + floorTexX) * 4 + 2];
 		color.green = a->purplestone[((64 * floorTexY + floorTexX) * 4) + 1];
 		color.blue = a->purplestone[((64 * floorTexY + floorTexX) * 4) + 0];
 		color_one_pixel(a, pixel, color);
+		//buffer[y][x] = (texture[3][64 * floorTexY + floorTexX] >> 1) & 8355711;
+		//ceiling (symmetrical!)
 
-		//buffer[a->win_y - y][x] = purplestone[64 * floorTexY + floorTexX];
-	}
 
-	for(int y = 0; y < drawStart; y++)
-	{
-		currentDist = a->win_y / (2.0 * y - a->win_y); //you could make a small lookup table for this instead
 
-		double weight = (currentDist - distPlayer) / (distWall - distPlayer);
 
-		double currentFloorX = weight * floorXWall + (1.0 - weight) * a->posX;
-		double currentFloorY = weight * floorYWall + (1.0 - weight) * a->posY;
-
-		int floorTexX, floorTexY;
-		floorTexX = (int)(currentFloorX * 64) % 64;
-		floorTexY = (int)(currentFloorY * 64) % 64;
-
-		pixel = x * 4 + y * a->size_line;
+		pixel = x * 4 + (a->win_y - y) * a->size_line;
 		color.transp = 0;
 		color.red = a->redbrick[(64 * floorTexY + floorTexX) * 4 + 2];
 		color.green = a->redbrick[((64 * floorTexY + floorTexX) * 4) + 1];
 		color.blue = a->redbrick[((64 * floorTexY + floorTexX) * 4) + 0];
 		color_one_pixel(a, pixel, color);
+		//buffer[a->win_y - y][x] = purplestone[64 * floorTexY + floorTexX];
 	}
+
+	// for(int y = 0; y < drawStart; y++)
+	// {
+	// 	currentDist = a->win_y / (2.0 * y - a->win_y); //you could make a small lookup table for this instead
+
+	// 	double weight = (currentDist - distPlayer) / (distWall - distPlayer);
+
+	// 	double currentFloorX = weight * floorXWall + (1.0 - weight) * a->posX;
+	// 	double currentFloorY = weight * floorYWall + (1.0 - weight) * a->posY;
+
+	// 	int floorTexX, floorTexY;
+	// 	floorTexX = (int)(currentFloorX * 64) % 64;
+	// 	floorTexY = (int)(currentFloorY * 64) % 64;
+
+	// 	pixel = x * 4 + y * a->size_line;
+	// 	color.transp = 0;
+	// 	color.red = a->redbrick[(64 * floorTexY + floorTexX) * 4 + 2];
+	// 	color.green = a->redbrick[((64 * floorTexY + floorTexX) * 4) + 1];
+	// 	color.blue = a->redbrick[((64 * floorTexY + floorTexX) * 4) + 0];
+	// 	color_one_pixel(a, pixel, color);
+	// }
 
 	// int i = 0;
 
