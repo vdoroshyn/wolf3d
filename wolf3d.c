@@ -48,13 +48,17 @@ int		key_press(int keycode, t_all *a)
 {
 	if (keycode == 53)
 		proper_exit(a);
-	else if (keycode == 125)
+	else if (keycode == 1)
 		a->is_moving = 1;
-	else if (keycode == 126)
+	else if (keycode == 13)
 		a->is_moving = 2;
-	else if (keycode == 123)
+	else if (keycode == 12)
+		a->is_moving = 3;
+	else if (keycode == 14)
+		a->is_moving = 4;
+	else if (keycode == 0)
 		a->is_rotating = 1;
-	else if (keycode == 124)
+	else if (keycode == 2)
 		a->is_rotating = 2;
 	else if (keycode == 257)
 		a->is_sprinting = 1;
@@ -64,14 +68,102 @@ int		key_press(int keycode, t_all *a)
 
 int		key_release(int keycode, t_all *a)
 {
-	if (keycode == 125 || keycode == 126)
+	if (keycode == 1 || keycode == 13 || keycode == 12 || keycode == 14)
 		a->is_moving = 0;
-	else if (keycode == 123 || keycode == 124)
+	else if (keycode == 0 || keycode == 2)
 		a->is_rotating = 0;
 	else if (keycode == 257)
 		a->is_sprinting = 0;
+	else if (keycode == 46)
+		music_manager(a);
 	reload_window(a);
 	return (0);
+}
+
+void	music_manager(t_all *a)
+{
+	if (a->is_music_playing == 0)
+	{
+		system("afplay mp3/music.mp3&");
+		a->is_music_playing = 1;
+	}
+	else
+	{
+		system("killall afplay");
+		a->is_music_playing = 0;
+	}
+}
+
+void	draw_minimap(t_all *a)
+{
+	int i;
+	int j;
+	int pixel;
+
+	i = 0;
+	while (i < a->map_y)
+	{
+		j = 0;
+		while (j < a->map_x)
+		{
+			pixel = 4 * j * 4 + 4 * i * a->size_line;
+			if (a->map[i][j] != '0')
+			{
+				a->str[pixel] = 255;
+				a->str[pixel + 1] = 255;
+				a->str[pixel + 2] = 255;
+				a->str[pixel + 3] = 0;
+				a->str[pixel + 4] = 255;
+				a->str[pixel + 5] = 255;
+				a->str[pixel + 6] = 255;
+				a->str[pixel + 7] = 0;
+
+				a->str[pixel + a->size_line] = 255;
+				a->str[pixel + a->size_line + 1] = 255;
+				a->str[pixel + a->size_line + 2] = 255;
+				a->str[pixel + a->size_line + 3] = 0;
+				a->str[pixel + a->size_line + 4] = 255;
+				a->str[pixel + a->size_line + 5] = 255;
+				a->str[pixel + a->size_line + 6] = 255;
+				a->str[pixel + a->size_line + 7] = 0;
+			}
+			// }
+			// else
+			// {
+			// 	a->str[pixel] = 255;
+			// 	a->str[pixel + 1] = 255;
+			// 	a->str[pixel + 2] = 255;
+			// 	a->str[pixel + 3] = 0;
+			// 	a->str[pixel + 4] = 255;
+			// 	a->str[pixel + 5] = 255;
+			// 	a->str[pixel + 6] = 255;
+			// 	a->str[pixel + 7] = 0;
+			// }
+			++j;
+		}
+		++i;
+	}
+	int playerX = (int)a->posX;
+	int playerY = (int)a->posY;
+
+	pixel = 4 * playerY * 4 + 4 * playerX * a->size_line;
+	a->str[pixel] = 0;
+	a->str[pixel + 1] = 255;
+	a->str[pixel + 2] = 0;
+	a->str[pixel + 3] = 0;
+	a->str[pixel + 4] = 0;
+	a->str[pixel + 5] = 255;
+	a->str[pixel + 6] = 0;
+	a->str[pixel + 7] = 0;
+
+	a->str[pixel + a->size_line] = 0;
+	a->str[pixel + a->size_line + 1] = 255;
+	a->str[pixel + a->size_line + 2] = 0;
+	a->str[pixel + a->size_line + 3] = 0;
+	a->str[pixel + a->size_line + 4] = 0;
+	a->str[pixel + a->size_line + 5] = 255;
+	a->str[pixel + a->size_line + 6] = 0;
+	a->str[pixel + a->size_line + 7] = 0;
 }
 
 int		reload_window(t_all *a)
@@ -171,7 +263,7 @@ void				load_window(t_all *a)
 		}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		if (a->side == 0) a->perpWallDist = (a->mapX - a->rayPosX + (1 - a->stepX) / 2) / a->rayDirX;
-		else           a->perpWallDist = (a->mapY - a->rayPosY + (1 - a->stepY) / 2) / a->rayDirY;
+		else              a->perpWallDist = (a->mapY - a->rayPosY + (1 - a->stepY) / 2) / a->rayDirY;
 
 
 		//texturing calculations
@@ -180,7 +272,7 @@ void				load_window(t_all *a)
 		//calculate value of wallX
 		//double wallX; //where exactly the wall was hit
 		if (a->side == 0) a->wallX = a->rayPosY + a->perpWallDist * a->rayDirY;
-		else           a->wallX = a->rayPosX + a->perpWallDist * a->rayDirX;
+		else              a->wallX = a->rayPosX + a->perpWallDist * a->rayDirX;
 		a->wallX -= floor((a->wallX));
 
 		//x coordinate on the texture
@@ -217,8 +309,10 @@ void				load_window(t_all *a)
 		// coord.y1 = drawEnd;
 		draw(a, x);
 	}
+	draw_minimap(a);
 	image_to_window_and_destroy(a);
 	load_gun(a);
+	
 }
 
 void			move(t_all *a, int flag)
@@ -237,6 +331,20 @@ void			move(t_all *a, int flag)
 			a->posX += a->dirX * a->moveSpeed;
  		if((a->map[(int)a->posX][(int)(a->posY + (a->dirY * a->moveSpeed) * 3)]) == '0')
  			a->posY += a->dirY * a->moveSpeed;
+	}
+	else if (flag == 3)
+	{
+		if((a->map[(int)(a->posX - (a->planeX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
+			a->posX -= a->planeX * a->moveSpeed;
+  		if((a->map[(int)a->posX][(int)(a->posY - (a->planeY * a->moveSpeed) * 3)]) == '0')
+  			a->posY -= a->planeY * a->moveSpeed;
+	}
+	else if (flag == 4)
+	{
+		if((a->map[(int)(a->posX + (a->planeX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
+			a->posX += a->planeX * a->moveSpeed;
+ 		if((a->map[(int)a->posX][(int)(a->posY + (a->planeY * a->moveSpeed) * 3)]) == '0')
+ 			a->posY += a->planeY * a->moveSpeed;
 	}
 }
 
@@ -311,6 +419,7 @@ int main(int argc, char **argv)
 	read_file_2(argv[1], &a);
 
 	construct(&a);
+
 	a.dirX = -1;
 	a.dirY = 0;
 	a.planeX = 0;
@@ -323,7 +432,8 @@ int main(int argc, char **argv)
 	a.is_rotating = 0;
 	a.is_moving = 0;
 	a.is_sprinting = 0;
-	
+	a.is_music_playing = 0;
+
 	// double posX = 22, posY = 12;  //x and y start position
 	// double dirX = -1, dirY = 0; //initial direction vector
 	// double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane

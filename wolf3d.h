@@ -70,6 +70,8 @@ typedef struct		s_all
 	int	is_moving;
 	int is_rotating;
 
+	int is_music_playing;
+
 	int				tex_bpp;
 	int				tex_size_line;
 	int				tex_endian;
@@ -111,7 +113,7 @@ void				construct(t_all *a);
 void				destruct(t_all *a);
 void				create_new_image(t_all *a);
 void				image_to_window_and_destroy(t_all *a);
-void		free_map(t_all *a);
+void				free_map(t_all *a);
 int					proper_exit(t_all *a);
 
 void				read_file_1(char *str, t_all *a);
@@ -123,13 +125,16 @@ int					is_player(char c);
 void				move(t_all *a, int flag);
 void				rotate(t_all *a, int flag);
 
+void				music_manager(t_all *a);
+
 void				color_one_pixel(t_all *a, int pixel, t_color color);
 void				draw(t_all *a, int x);
+void				draw_minimap(t_all *a);
 
 int					reload_window(t_all *a);
 void				load_window(t_all *a);
-void				load_gun(t_all *a);
 
-void	load_textures(t_all *a);
+void				load_gun(t_all *a);
+void				load_textures(t_all *a);
 
 #endif

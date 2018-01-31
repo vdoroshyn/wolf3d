@@ -23,6 +23,10 @@ void	construct(t_all *a)
 
 void	destruct(t_all *a)
 {
+	if (a->is_music_playing == 1)
+	{
+		system("killall afplay");
+	}
 	mlx_destroy_window(a->mlx, a->win);
 	free_map(a);
 }

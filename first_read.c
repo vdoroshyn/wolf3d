@@ -72,10 +72,10 @@ static int		get_map_size(int fd, int *player_count, t_all *a)
 		{
 			a->map_x = number_of_symbols;
 		}
-		if (a->map_x != number_of_symbols || a->map_x < 5)
+		if (a->map_x != number_of_symbols || a->map_x < 5 || a->map_x > 50)
 		{
 			write(2, "the map is not valid\n", 21);
-			free(line);
+			ft_strdel(&line);
 			close(fd);
 			exit(4);
 		}
@@ -100,7 +100,7 @@ void			read_file_1(char *str, t_all *a)
 		exit(2);
 	}
 	is_file_empty = get_map_size(fd, &player_count, a);
-	if (is_file_empty || a->map_y < 5 || player_count != 1)
+	if (is_file_empty || a->map_y < 5 || a->map_y > 50 || player_count != 1)
 	{
 		write(2, "the map is not valid\n", 21);
 		close(fd);
