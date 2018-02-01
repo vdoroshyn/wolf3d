@@ -19,8 +19,8 @@
 
 typedef struct		s_all
 {
-	int				map_x;
-	int				map_y;
+	int				map_w;
+	int				map_h;
 	char			**map;
 	int				win_x;
 	int				win_y;
@@ -32,49 +32,49 @@ typedef struct		s_all
 	int				size_line;
 	int				endian;
 
-	double			dirX;
-	double			dirY;
-	double			planeX;
-	double			planeY;
-	double			posX;
-	double			posY;
+	double			direction_x;
+	double			direction_y;
+	double			perp_dir_x;
+	double			perp_dir_y;
+	double			position_x;
+	double			position_y;
 	double			time;
-	double			oldTime;
+	double			old_time;
 
-	double			cameraX;
-	double			rayPosX;
-	double			rayPosY;
-	double			rayDirX;
-	double			rayDirY;
-	int mapX;
-	int mapY;
-	double sideDistX;
-	double sideDistY;
-	double deltaDistX;
-	double deltaDistY;
-	double perpWallDist;
+	double			camera_x;
+	double			ray_position_x;
+	double			ray_position_y;
+	double			ray_direction_x;
+	double			ray_direction_y;
+	int				map_x;
+	int				map_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
 
-	double wallX;
-	int texX;
+	double			wall_x;
+	int				tex_x;
 
-	int stepX;
-	int stepY;
-	int hit;
-	int side;
+	int				x_step;
+	int				y_step;
+	int				hit;
+	int				side;
 
-	double frameTime;
-	double moveSpeed;
-	double rotSpeed;
+	double			delta_time;
+	double			ms;
+	double			rotation_speed;
 
-	int is_sprinting;
-	int	is_moving;
-	int is_rotating;
+	int				is_sprinting;
+	int				is_moving;
+	int				is_rotating;
 
-	int is_music_playing;
+	int				is_music_playing;
 
 	int				tex_bpp;
-	int				tex_size_line;
-	int				tex_endian;
+	int				tex_sl;
+	int				tex_e;
 	char			*wood;
 	char			*redbrick;
 	char			*greystone;
@@ -82,7 +82,6 @@ typedef struct		s_all
 	char			*colorstone;
 	char			*mossy;
 	char			*gun;
-
 }					t_all;
 
 typedef struct		s_color
@@ -92,22 +91,6 @@ typedef struct		s_color
 	unsigned char	green;
 	unsigned char	blue;
 }					t_color;
-
-typedef struct		s_br1
-{
-	int				x0;
-	int				y0;
-	int				x1;
-	int				y1;
-}					t_br1;
-
-typedef struct		s_br2
-{
-	int				dx;
-	int				dy;
-	int				sx;
-	int				sy;
-}					t_br2;
 
 void				construct(t_all *a);
 void				destruct(t_all *a);

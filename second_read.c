@@ -12,24 +12,12 @@
 
 #include "wolf3d.h"
 
-/*
-**open the fd first time
-**read line by line comparing their size
-**check whether each node consists of numbers only or letter P
-**check whether there is one and only one letter P on the map
-
-**open the fd second time
-**atoi every coord and put them into malloced map_x x map_y array
-**check whether borders consist not of 0 (sides: check size first, then compare the first and last symbols)
-**init player position in the struct and put 0 in the array
-*/
-
 static void		null_pointer_map_array(t_all *a)
 {
 	int			i;
 
 	i = 0;
-	while (i <= a->map_y)
+	while (i <= a->map_h)
 	{
 		a->map[i] = NULL;
 		++i;
@@ -38,30 +26,30 @@ static void		null_pointer_map_array(t_all *a)
 
 void			create_pointer_map_array(t_all *a)
 {
-	a->map = (char **)malloc(sizeof(char *) * (a->map_y + 1));
+	a->map = (char **)malloc(sizeof(char *) * (a->map_h + 1));
 	if (a->map == NULL)
 	{
 		exit(5);
 	}
-	null_pointer_map_array(a);	
+	null_pointer_map_array(a);
 }
 
-static void			initialize_player_position(t_all *a)
+static void		initialize_player_position(t_all *a)
 {
 	int			i;
 	int			j;
 
 	i = 0;
-	while (i < a->map_y)
+	while (i < a->map_h)
 	{
 		j = 0;
-		while (j < a->map_x)
+		while (j < a->map_w)
 		{
 			if (is_player(a->map[i][j]))
 			{
 				a->map[i][j] = '0';
-				a->posX = i + 0.5;
-				a->posY = j + 0.5;
+				a->position_x = i + 0.5;
+				a->position_y = j + 0.5;
 				return ;
 			}
 			++j;
@@ -70,7 +58,7 @@ static void			initialize_player_position(t_all *a)
 	}
 }
 
-void		free_map(t_all *a)
+void			free_map(t_all *a)
 {
 	int			i;
 
@@ -99,8 +87,8 @@ void			read_file_2(char *str, t_all *a)
 		exit(6);
 	}
 	i = 0;
-	while (i < a->map_y)
-	{	
+	while (i < a->map_h)
+	{
 		if (get_next_line(fd, &line) == -1)
 		{
 			free_map(a);
@@ -111,7 +99,7 @@ void			read_file_2(char *str, t_all *a)
 	}
 	if (!are_all_map_borders_valid(a))
 	{
-		free_2d_array((void **)a->map, a->map_y);
+		free_2d_array((void **)a->map, a->map_h);
 		write(2, "the map is not valid\n", 21);
 		exit(8);
 	}

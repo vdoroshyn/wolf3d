@@ -12,38 +12,6 @@
 
 #include "wolf3d.h"
 
-
-// #define mapWidth 24
-// #define mapHeight 24
-
-// int worldMap[mapWidth][mapHeight]=
-// {
-// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-// };
-
 int		key_press(int keycode, t_all *a)
 {
 	if (keycode == 53)
@@ -94,84 +62,12 @@ void	music_manager(t_all *a)
 	}
 }
 
-void	draw_minimap(t_all *a)
-{
-	int i;
-	int j;
-	int pixel;
-
-	i = 0;
-	while (i < a->map_y)
-	{
-		j = 0;
-		while (j < a->map_x)
-		{
-			pixel = 4 * j * 4 + 4 * i * a->size_line;
-			if (a->map[i][j] != '0')
-			{
-				a->str[pixel] = 255;
-				a->str[pixel + 1] = 255;
-				a->str[pixel + 2] = 255;
-				a->str[pixel + 3] = 0;
-				a->str[pixel + 4] = 255;
-				a->str[pixel + 5] = 255;
-				a->str[pixel + 6] = 255;
-				a->str[pixel + 7] = 0;
-
-				a->str[pixel + a->size_line] = 255;
-				a->str[pixel + a->size_line + 1] = 255;
-				a->str[pixel + a->size_line + 2] = 255;
-				a->str[pixel + a->size_line + 3] = 0;
-				a->str[pixel + a->size_line + 4] = 255;
-				a->str[pixel + a->size_line + 5] = 255;
-				a->str[pixel + a->size_line + 6] = 255;
-				a->str[pixel + a->size_line + 7] = 0;
-			}
-			// }
-			// else
-			// {
-			// 	a->str[pixel] = 255;
-			// 	a->str[pixel + 1] = 255;
-			// 	a->str[pixel + 2] = 255;
-			// 	a->str[pixel + 3] = 0;
-			// 	a->str[pixel + 4] = 255;
-			// 	a->str[pixel + 5] = 255;
-			// 	a->str[pixel + 6] = 255;
-			// 	a->str[pixel + 7] = 0;
-			// }
-			++j;
-		}
-		++i;
-	}
-	int playerX = (int)a->posX;
-	int playerY = (int)a->posY;
-
-	pixel = 4 * playerY * 4 + 4 * playerX * a->size_line;
-	a->str[pixel] = 0;
-	a->str[pixel + 1] = 255;
-	a->str[pixel + 2] = 0;
-	a->str[pixel + 3] = 0;
-	a->str[pixel + 4] = 0;
-	a->str[pixel + 5] = 255;
-	a->str[pixel + 6] = 0;
-	a->str[pixel + 7] = 0;
-
-	a->str[pixel + a->size_line] = 0;
-	a->str[pixel + a->size_line + 1] = 255;
-	a->str[pixel + a->size_line + 2] = 0;
-	a->str[pixel + a->size_line + 3] = 0;
-	a->str[pixel + a->size_line + 4] = 0;
-	a->str[pixel + a->size_line + 5] = 255;
-	a->str[pixel + a->size_line + 6] = 0;
-	a->str[pixel + a->size_line + 7] = 0;
-}
-
 int		reload_window(t_all *a)
 {
 	if (a->is_sprinting == 1)
-		a->moveSpeed = 0.2;
+		a->ms = 0.2;
 	else
-		a->moveSpeed = 0.1;
+		a->ms = 0.1;
 	move(a, a->is_moving);
 	rotate(a, a->is_rotating);
 	load_window(a);
@@ -181,7 +77,10 @@ int		reload_window(t_all *a)
 void				load_window(t_all *a)
 {
 	create_new_image(a);
-	for(int x = 0; x < a->win_x; x++)
+	int x;
+
+	x = 0;
+	while (x < a->win_x)
 	{
 		// //calculate ray position and direction
 		// double cameraX = 2 * x / (double)a.win_x - 1; //x-coordinate in camera space
@@ -210,104 +109,81 @@ void				load_window(t_all *a)
 		// int side; //was a NS or a EW wall hit? NSWE
 
 		
-		a->cameraX = 2 * x / (double)a->win_x - 1; //x-coordinate in camera space
-		a->rayPosX = a->posX;
-		a->rayPosY = a->posY;
-		a->rayDirX = a->dirX + a->planeX * a->cameraX;
-		a->rayDirY = a->dirY + a->planeY * a->cameraX;
-		a->mapX = (int)a->rayPosX;
-		a->mapY = (int)a->rayPosY;
-		a->deltaDistX = sqrt(1 + (a->rayDirY * a->rayDirY) / (a->rayDirX * a->rayDirX));
-		a->deltaDistY = sqrt(1 + (a->rayDirX * a->rayDirX) / (a->rayDirY * a->rayDirY));
+		a->camera_x = 2 * x / (double)a->win_x - 1; //x-coordinate in camera space
+		a->ray_position_x = a->position_x;
+		a->ray_position_y = a->position_y;
+		a->ray_direction_x = a->direction_x + a->perp_dir_x * a->camera_x;
+		a->ray_direction_y = a->direction_y + a->perp_dir_y * a->camera_x;
+		a->map_x = (int)a->ray_position_x;
+		a->map_y = (int)a->ray_position_y;
+		a->delta_dist_x = sqrt(1 + (a->ray_direction_y * a->ray_direction_y) / (a->ray_direction_x * a->ray_direction_x));
+		a->delta_dist_y = sqrt(1 + (a->ray_direction_x * a->ray_direction_x) / (a->ray_direction_y * a->ray_direction_y));
 		a->hit = 0;
 
 		//calculate step and initial sideDist
-		if (a->rayDirX < 0)
+		if (a->ray_direction_x < 0)
 		{
-			a->stepX = -1;
-			a->sideDistX = (a->rayPosX - a->mapX) * a->deltaDistX;
+			a->x_step = -1;
+			a->side_dist_x = (a->ray_position_x - a->map_x) * a->delta_dist_x;
 		}
 		else
 		{
-			a->stepX = 1;
-			a->sideDistX = (a->mapX + 1.0 - a->rayPosX) * a->deltaDistX;
+			a->x_step = 1;
+			a->side_dist_x = (a->map_x + 1.0 - a->ray_position_x) * a->delta_dist_x;
 		}
-		if (a->rayDirY < 0)
+		if (a->ray_direction_y < 0)
 		{
-			a->stepY = -1;
-			a->sideDistY = (a->rayPosY - a->mapY) * a->deltaDistY;
+			a->y_step = -1;
+			a->side_dist_y = (a->ray_position_y - a->map_y) * a->delta_dist_y;
 		}
 		else
 		{
-			a->stepY = 1;
-			a->sideDistY = (a->mapY + 1.0 - a->rayPosY) * a->deltaDistY;
+			a->y_step = 1;
+			a->side_dist_y = (a->map_y + 1.0 - a->ray_position_y) * a->delta_dist_y;
 		}
 		//perform DDA
 		while (a->hit == 0)
 		{
 			//jump to next map square, OR in x-direction, OR in y-direction
-			if (a->sideDistX < a->sideDistY)
+			if (a->side_dist_x < a->side_dist_y)
 			{
-				a->sideDistX += a->deltaDistX;
-				a->mapX += a->stepX;
+				a->side_dist_x += a->delta_dist_x;
+				a->map_x += a->x_step;
 				a->side = 0;
 			}
 			else
 			{
-				a->sideDistY += a->deltaDistY;
-				a->mapY += a->stepY;
+				a->side_dist_y += a->delta_dist_y;
+				a->map_y += a->y_step;
 				a->side = 1;
 			}
 			//Check if ray has hit a wall
-			if (a->map[a->mapX][a->mapY] > '0') a->hit = 1;
+			if (a->map[a->map_x][a->map_y] > '0')
+				a->hit = 1;
 		}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-		if (a->side == 0) a->perpWallDist = (a->mapX - a->rayPosX + (1 - a->stepX) / 2) / a->rayDirX;
-		else              a->perpWallDist = (a->mapY - a->rayPosY + (1 - a->stepY) / 2) / a->rayDirY;
+		if (a->side == 0)
+			a->perp_wall_dist = (a->map_x - a->ray_position_x + (1 - a->x_step) / 2) / a->ray_direction_x;
+		else
+			a->perp_wall_dist = (a->map_y - a->ray_position_y + (1 - a->y_step) / 2) / a->ray_direction_y;
 
-
-		//texturing calculations
-		//int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
 
 		//calculate value of wallX
 		//double wallX; //where exactly the wall was hit
-		if (a->side == 0) a->wallX = a->rayPosY + a->perpWallDist * a->rayDirY;
-		else              a->wallX = a->rayPosX + a->perpWallDist * a->rayDirX;
-		a->wallX -= floor((a->wallX));
+		if (a->side == 0)
+			a->wall_x = a->ray_position_y + a->perp_wall_dist * a->ray_direction_y;
+		else
+			a->wall_x = a->ray_position_x + a->perp_wall_dist * a->ray_direction_x;
+		a->wall_x -= floor((a->wall_x));
 
 		//x coordinate on the texture
-		a->texX = (int)(a->wallX * (double)64);
-		if(a->side == 0 && a->rayDirX > 0) a->texX = 64 - a->texX - 1;
-		if(a->side == 1 && a->rayDirY < 0) a->texX = 64 - a->texX - 1;
-
-		// //choose wall color
-		// ColorRGB color;
-		// switch(worldMap[mapX][mapY])
-		// {
-		// 	case 1:  color = RGB_Red;  break; //red
-		// 	case 2:  color = RGB_Green;  break; //green
-		// 	case 3:  color = RGB_Blue;   break; //blue
-		// 	case 4:  color = RGB_White;  break; //white
-		// 	default: color = RGB_Yellow; break; //yellow
-		// }
-
-		// //give x and y sides different brightness
-		// if (side == 1) {color = color / 2;}
-		
-		// t_color color;
-
-		// color.transp = 0;
-		// color.red = 255;
-		// color.green = 0;
-		// color.blue = 0;
-		//draw the pixels of the stripe as a vertical line
-		// t_br1 coord;
-
-		// coord.x0 = x;
-		// coord.x1 = x;
-		// coord.y0 = drawStart;
-		// coord.y1 = drawEnd;
+		a->tex_x = (int)(a->wall_x * (double)64);
+		if(a->side == 0 && a->ray_direction_x > 0)
+			a->tex_x = 64 - a->tex_x - 1;
+		if(a->side == 1 && a->ray_direction_y < 0)
+			a->tex_x = 64 - a->tex_x - 1;
 		draw(a, x);
+		++x;
 	}
 	draw_minimap(a);
 	image_to_window_and_destroy(a);
@@ -317,34 +193,33 @@ void				load_window(t_all *a)
 
 void			move(t_all *a, int flag)
 {
-	//TODO *3
 	if (flag == 1)
 	{
-		if((a->map[(int)(a->posX - (a->dirX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
-			a->posX -= a->dirX * a->moveSpeed;
-  		if((a->map[(int)a->posX][(int)(a->posY - (a->dirY * a->moveSpeed) * 3)]) == '0')
-  			a->posY -= a->dirY * a->moveSpeed;
+		if((a->map[(int)(a->position_x - (a->direction_x * a->ms) * 3)][(int)a->position_y]) == '0')
+			a->position_x -= a->direction_x * a->ms;
+  		if((a->map[(int)a->position_x][(int)(a->position_y - (a->direction_y * a->ms) * 3)]) == '0')
+  			a->position_y -= a->direction_y * a->ms;
 	}
 	else if (flag == 2)
 	{
-		if((a->map[(int)(a->posX + (a->dirX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
-			a->posX += a->dirX * a->moveSpeed;
- 		if((a->map[(int)a->posX][(int)(a->posY + (a->dirY * a->moveSpeed) * 3)]) == '0')
- 			a->posY += a->dirY * a->moveSpeed;
+		if((a->map[(int)(a->position_x + (a->direction_x * a->ms) * 3)][(int)a->position_y]) == '0')
+			a->position_x += a->direction_x * a->ms;
+ 		if((a->map[(int)a->position_x][(int)(a->position_y + (a->direction_y * a->ms) * 3)]) == '0')
+ 			a->position_y += a->direction_y * a->ms;
 	}
 	else if (flag == 3)
 	{
-		if((a->map[(int)(a->posX - (a->planeX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
-			a->posX -= a->planeX * a->moveSpeed;
-  		if((a->map[(int)a->posX][(int)(a->posY - (a->planeY * a->moveSpeed) * 3)]) == '0')
-  			a->posY -= a->planeY * a->moveSpeed;
+		if((a->map[(int)(a->position_x - (a->perp_dir_x * a->ms) * 3)][(int)a->position_y]) == '0')
+			a->position_x -= a->perp_dir_x * a->ms;
+  		if((a->map[(int)a->position_x][(int)(a->position_y - (a->perp_dir_y * a->ms) * 3)]) == '0')
+  			a->position_y -= a->perp_dir_y * a->ms;
 	}
 	else if (flag == 4)
 	{
-		if((a->map[(int)(a->posX + (a->planeX * a->moveSpeed) * 3)][(int)a->posY]) == '0')
-			a->posX += a->planeX * a->moveSpeed;
- 		if((a->map[(int)a->posX][(int)(a->posY + (a->planeY * a->moveSpeed) * 3)]) == '0')
- 			a->posY += a->planeY * a->moveSpeed;
+		if((a->map[(int)(a->position_x + (a->perp_dir_x * a->ms) * 3)][(int)a->position_y]) == '0')
+			a->position_x += a->perp_dir_x * a->ms;
+ 		if((a->map[(int)a->position_x][(int)(a->position_y + (a->perp_dir_y * a->ms) * 3)]) == '0')
+ 			a->position_y += a->perp_dir_y * a->ms;
 	}
 }
 
@@ -352,43 +227,43 @@ void			rotate(t_all *a, int flag)
 {
 	if (flag == 1)
 	{
-		  double oldDirX = a->dirX;
-		  a->dirX = a->dirX * cos(a->rotSpeed) - a->dirY * sin(a->rotSpeed);
-		  a->dirY = oldDirX * sin(a->rotSpeed) + a->dirY * cos(a->rotSpeed);
-		  double oldPlaneX = a->planeX;
-		  a->planeX = a->planeX * cos(a->rotSpeed) - a->planeY * sin(a->rotSpeed);
-		  a->planeY = oldPlaneX * sin(a->rotSpeed) + a->planeY * cos(a->rotSpeed);
+		  double oldDirX = a->direction_x;
+		  a->direction_x = a->direction_x * cos(a->rotation_speed) - a->direction_y * sin(a->rotation_speed);
+		  a->direction_y = oldDirX * sin(a->rotation_speed) + a->direction_y * cos(a->rotation_speed);
+		  double oldPlaneX = a->perp_dir_x;
+		  a->perp_dir_x = a->perp_dir_x * cos(a->rotation_speed) - a->perp_dir_y * sin(a->rotation_speed);
+		  a->perp_dir_y = oldPlaneX * sin(a->rotation_speed) + a->perp_dir_y * cos(a->rotation_speed);
 	}
 	else if (flag == 2)
 	{
-		  double oldDirX = a->dirX;
-		  a->dirX = a->dirX * cos(-a->rotSpeed) - a->dirY * sin(-a->rotSpeed);
-		  a->dirY = oldDirX * sin(-a->rotSpeed) + a->dirY * cos(-a->rotSpeed);
-		  double oldPlaneX = a->planeX;
-		  a->planeX = a->planeX * cos(-a->rotSpeed) - a->planeY * sin(-a->rotSpeed);
-		  a->planeY = oldPlaneX * sin(-a->rotSpeed) + a->planeY * cos(-a->rotSpeed);
+		  double oldDirX = a->direction_x;
+		  a->direction_x = a->direction_x * cos(-a->rotation_speed) - a->direction_y * sin(-a->rotation_speed);
+		  a->direction_y = oldDirX * sin(-a->rotation_speed) + a->direction_y * cos(-a->rotation_speed);
+		  double oldPlaneX = a->perp_dir_x;
+		  a->perp_dir_x = a->perp_dir_x * cos(-a->rotation_speed) - a->perp_dir_y * sin(-a->rotation_speed);
+		  a->perp_dir_y = oldPlaneX * sin(-a->rotation_speed) + a->perp_dir_y * cos(-a->rotation_speed);
 	}
 }
 
 void	load_textures(t_all *a)
 {
-	void *textures[6];
-	int width;
-	int height;
+	void *tex[6];
+	int w;
+	int h;
 
-	textures[0] = mlx_xpm_file_to_image(a->mlx, "textures/wood.xpm", &width, &height);
-	textures[1] = mlx_xpm_file_to_image(a->mlx, "textures/redbrick.xpm", &width, &height);
-	textures[2] = mlx_xpm_file_to_image(a->mlx, "textures/greystone.xpm", &width, &height);
-	textures[3] = mlx_xpm_file_to_image(a->mlx, "textures/purplestone.xpm", &width, &height);
-	textures[4] = mlx_xpm_file_to_image(a->mlx, "textures/colorstone.xpm", &width, &height);
-	textures[5] = mlx_xpm_file_to_image(a->mlx, "textures/mossy.xpm", &width, &height);
+	tex[0] = mlx_xpm_file_to_image(a->mlx, "tex/wood.xpm", &w, &h);
+	tex[1] = mlx_xpm_file_to_image(a->mlx, "tex/redbrick.xpm", &w, &h);
+	tex[2] = mlx_xpm_file_to_image(a->mlx, "tex/greystone.xpm", &w, &h);
+	tex[3] = mlx_xpm_file_to_image(a->mlx, "tex/purplestone.xpm", &w, &h);
+	tex[4] = mlx_xpm_file_to_image(a->mlx, "tex/colorstone.xpm", &w, &h);
+	tex[5] = mlx_xpm_file_to_image(a->mlx, "tex/mossy.xpm", &w, &h);
 
-	a->wood = mlx_get_data_addr(textures[0], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
-	a->redbrick = mlx_get_data_addr(textures[1], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
-	a->greystone = mlx_get_data_addr(textures[2], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
-	a->purplestone = mlx_get_data_addr(textures[3], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
-	a->colorstone = mlx_get_data_addr(textures[4], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
-	a->mossy = mlx_get_data_addr(textures[5], &a->tex_bpp, &a->tex_size_line, &a->tex_endian);
+	a->wood = mlx_get_data_addr(tex[0], &a->tex_bpp, &a->tex_sl, &a->tex_e);
+	a->redbrick = mlx_get_data_addr(tex[1], &a->tex_bpp, &a->tex_sl, &a->tex_e);
+	a->greystone = mlx_get_data_addr(tex[2], &a->tex_bpp, &a->tex_sl, &a->tex_e);
+	a->purplestone = mlx_get_data_addr(tex[3], &a->tex_bpp, &a->tex_sl, &a->tex_e);
+	a->colorstone = mlx_get_data_addr(tex[4], &a->tex_bpp, &a->tex_sl, &a->tex_e);
+	a->mossy = mlx_get_data_addr(tex[5], &a->tex_bpp, &a->tex_sl, &a->tex_e);
 }
 
 void		load_gun(t_all *a)
@@ -397,7 +272,7 @@ void		load_gun(t_all *a)
 	int gun_width;
 	int gun_height;
 
-	gun_texture[0] = mlx_xpm_file_to_image(a->mlx, "textures/gun.xpm", &gun_width, &gun_height);
+	gun_texture[0] = mlx_xpm_file_to_image(a->mlx, "tex/gun.xpm", &gun_width, &gun_height);
 	mlx_put_image_to_window(a->mlx, a->win, gun_texture[0], (a->win_x - gun_width) / 4 * 3, a->win_y - gun_height);
 	mlx_destroy_image(a->mlx, gun_texture[0]);
 }
@@ -420,82 +295,26 @@ int main(int argc, char **argv)
 
 	construct(&a);
 
-	a.dirX = -1;
-	a.dirY = 0;
-	a.planeX = 0;
-	a.planeY = 0.66;
-	// a.posX = 22;
-	// a.posY = 12;
+	a.direction_x = -1;
+	a.direction_y = 0;
+	a.perp_dir_x = 0;
+	a.perp_dir_y = 0.66;
 	a.time = 0;
-	a.oldTime = 0;
+	a.old_time = 0;
 
 	a.is_rotating = 0;
 	a.is_moving = 0;
 	a.is_sprinting = 0;
 	a.is_music_playing = 0;
 
-	// double posX = 22, posY = 12;  //x and y start position
-	// double dirX = -1, dirY = 0; //initial direction vector
-	// double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	load_window(&a);
 
-	// double time = 0; //time of current frame
-	// double oldTime = 0; //time of previous frame
+	a.old_time = a.time;
+	a.time = clock();
+	a.delta_time = (a.time - a.old_time) / 1000.0;
+	a.ms = a.delta_time * 5.0;
+	a.rotation_speed = a.delta_time * 0.001;
 
-//timing for input and FPS counter
-// oldTime = time;
-// time = getTicks();
-// double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-// print(1.0 / frameTime); //FPS counter
-// redraw();
-// cls();
-load_window(&a);
-// //speed modifiers
-// double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-// double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
-a.oldTime = a.time;
-a.time = clock();
-a.frameTime = (a.time - a.oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-// print(1.0 / frameTime); //FPS counter
-//speed modifiers
-// a.moveSpeed = a.frameTime * 5.0; //the constant value is in squares/second
-// a.rotSpeed = a.frameTime * 3.0; //the constant value is in radians/second
-a.moveSpeed = 0.1;
-a.rotSpeed = 0.05;
-// readKeys();
-// //move forward if no wall in front of you
-// if (keyDown(SDLK_UP))
-// {
-//   if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false) posX += dirX * moveSpeed;
-//   if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false) posY += dirY * moveSpeed;
-// }
-// //move backwards if no wall behind you
-// if (keyDown(SDLK_DOWN))
-// {
-//   if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false) posX -= dirX * moveSpeed;
-//   if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false) posY -= dirY * moveSpeed;
-// }
-// //rotate to the right
-// if (keyDown(SDLK_RIGHT))
-// {
-//   //both camera direction and camera plane must be rotated
-//   double oldDirX = dirX;
-//   dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-//   dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-//   double oldPlaneX = planeX;
-//   planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-//   planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-// }
-// //rotate to the left
-// if (keyDown(SDLK_LEFT))
-// {
-//   //both camera direction and camera plane must be rotated
-//   double oldDirX = dirX;
-//   dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-//   dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-//   double oldPlaneX = planeX;
-//   planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-//   planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-	// mlx_hook(a.win, 2, 5, my_key_func1, &a);
 	mlx_hook(a.win, 2, 1, key_press, &a);
 	mlx_hook(a.win, 3, 2, key_release, &a);
 	mlx_hook(a.win, 17, 1L << 17, proper_exit, &a);

@@ -24,6 +24,7 @@ OBJECTS = wolf3d.o \
 			first_read.o \
 			second_read.o \
 			map_borders.o \
+			draw_minimap.o \
 
 .PHONY : clean all fclean re
 
@@ -65,3 +66,6 @@ second_read.o : second_read.c $(HEADER)
 
 map_borders.o : map_borders.c $(HEADER)
 	$(CC) $(CFLAGS) -c map_borders.c wolf3d.h
+
+draw_minimap.o : draw_minimap.c $(HEADER)
+	$(CC) $(CFLAGS) -c draw_minimap.c wolf3d.h

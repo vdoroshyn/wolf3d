@@ -39,7 +39,7 @@ static int		is_border_valid(char *str)
 
 static int		are_top_bottom_borders_valid(t_all *a)
 {
-	if (!is_border_valid(a->map[0]) || !is_border_valid(a->map[a->map_y - 1]))
+	if (!is_border_valid(a->map[0]) || !is_border_valid(a->map[a->map_h - 1]))
 	{
 		return (0);
 	}
@@ -51,9 +51,9 @@ static int		are_right_left_borders_valid(t_all *a)
 	int			i;
 
 	i = 0;
-	while (i < a->map_y)
+	while (i < a->map_h)
 	{
-		if (is_not_wall(a->map[i][0]) || is_not_wall(a->map[i][a->map_x - 1]))
+		if (is_not_wall(a->map[i][0]) || is_not_wall(a->map[i][a->map_w - 1]))
 		{
 			return (0);
 		}

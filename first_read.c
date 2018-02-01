@@ -12,18 +12,6 @@
 
 #include "wolf3d.h"
 
-/*
-**open the fd first time
-**read line by line comparing their size
-**check whether each node consists of numbers only or letter P
-**check whether there is one and only one letter P on the map
-
-**open the fd second time
-**atoi every coord and put them into malloced map_x x map_y array
-**check whether borders consist not of 0 (sides: check size first, then compare the first and last symbols)
-**init player position in the struct and put 0 in the array
-*/
-
 int		is_player(char c)
 {
 	if (c != 'P')
@@ -66,13 +54,13 @@ static int		get_map_size(int fd, int *player_count, t_all *a)
 	while (get_next_line(fd, &line) > 0)
 	{
 		is_file_empty = 0;
-		a->map_y += 1;
+		a->map_h += 1;
 		number_of_symbols = count_line_symbols(line, player_count);
-		if (a->map_x == 0)
+		if (a->map_w == 0)
 		{
-			a->map_x = number_of_symbols;
+			a->map_w = number_of_symbols;
 		}
-		if (a->map_x != number_of_symbols || a->map_x < 5 || a->map_x > 50)
+		if (a->map_w != number_of_symbols || a->map_w < 5 || a->map_w > 50)
 		{
 			write(2, "the map is not valid\n", 21);
 			ft_strdel(&line);
@@ -90,8 +78,8 @@ void			read_file_1(char *str, t_all *a)
 	int			fd;
 	int			player_count;
 
-	a->map_x = 0;
-	a->map_y = 0;
+	a->map_w = 0;
+	a->map_h = 0;
 	player_count = 0;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
@@ -100,7 +88,7 @@ void			read_file_1(char *str, t_all *a)
 		exit(2);
 	}
 	is_file_empty = get_map_size(fd, &player_count, a);
-	if (is_file_empty || a->map_y < 5 || a->map_y > 50 || player_count != 1)
+	if (is_file_empty || a->map_h < 5 || a->map_h > 50 || player_count != 1)
 	{
 		write(2, "the map is not valid\n", 21);
 		close(fd);
