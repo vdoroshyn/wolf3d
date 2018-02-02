@@ -12,6 +12,21 @@
 
 #include "wolf3d.h"
 
+void			free_map(t_all *a)
+{
+	int			i;
+
+	i = 0;
+	while (a->map[i] != NULL)
+	{
+		free(a->map[i]);
+		a->map[i] = NULL;
+		++i;
+	}
+	free(a->map);
+	a->map = NULL;
+}
+
 static void		calculate_ms_and_rs(t_all *a)
 {
 	a->old_time = a->time;

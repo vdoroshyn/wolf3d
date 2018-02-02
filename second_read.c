@@ -34,6 +34,16 @@ void			create_pointer_map_array(t_all *a)
 	null_pointer_map_array(a);
 }
 
+static void		borders_error(t_all *a)
+{
+	if (!are_all_map_borders_valid(a))
+	{
+		free_2d_array((void **)a->map, a->map_h);
+		write(2, "the map is not valid\n", 21);
+		exit(8);
+	}
+}
+
 static void		initialize_player_position(t_all *a)
 {
 	int			i;
@@ -56,21 +66,6 @@ static void		initialize_player_position(t_all *a)
 		}
 		++i;
 	}
-}
-
-void			free_map(t_all *a)
-{
-	int			i;
-
-	i = 0;
-	while (a->map[i] != NULL)
-	{
-		free(a->map[i]);
-		a->map[i] = NULL;
-		++i;
-	}
-	free(a->map);
-	a->map = NULL;
 }
 
 void			read_file_2(char *str, t_all *a)
@@ -97,12 +92,7 @@ void			read_file_2(char *str, t_all *a)
 		a->map[i] = line;
 		++i;
 	}
-	if (!are_all_map_borders_valid(a))
-	{
-		free_2d_array((void **)a->map, a->map_h);
-		write(2, "the map is not valid\n", 21);
-		exit(8);
-	}
+	borders_error(a);
 	initialize_player_position(a);
 	close(fd);
 }
