@@ -100,12 +100,12 @@ typedef struct		s_all
 	int				tex_bpp;
 	int				tex_sl;
 	int				tex_e;
-	char			*wood;
-	char			*redbrick;
-	char			*greystone;
-	char			*purplestone;
-	char			*colorstone;
-	char			*mossy;
+	char			*wd;
+	char			*rb;
+	char			*gs;
+	char			*ps;
+	char			*cs;
+	char			*m;
 	char			*gun;
 }					t_all;
 
@@ -125,6 +125,8 @@ int					is_player(char c);
 void				move(t_all *a, int flag);
 void				rotate(t_all *a, int flag);
 
+int					key_press(int keycode, t_all *a);
+int					key_release(int keycode, t_all *a);
 void				music_manager(t_all *a);
 
 void				color_one_pixel(t_all *a, int pixel);

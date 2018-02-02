@@ -18,11 +18,11 @@ static void		draw_floor(t_all *a, int y, int x)
 
 	pixel = x * 4 + y * a->size_line;
 	a->col.transp = 0;
-	a->col.red = a->purplestone[(64 * a->floor_tex_y
+	a->col.red = a->ps[(64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4 + 2];
-	a->col.green = a->purplestone[((64 * a->floor_tex_y
+	a->col.green = a->ps[((64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4) + 1];
-	a->col.blue = a->purplestone[((64 * a->floor_tex_y
+	a->col.blue = a->ps[((64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4) + 0];
 	color_one_pixel(a, pixel);
 }
@@ -33,11 +33,11 @@ static void		draw_ceiling(t_all *a, int y, int x)
 
 	pixel = x * 4 + (a->win_y - y) * a->size_line;
 	a->col.transp = 0;
-	a->col.red = a->redbrick[(64 * a->floor_tex_y
+	a->col.red = a->rb[(64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4 + 2];
-	a->col.green = a->redbrick[((64 * a->floor_tex_y
+	a->col.green = a->rb[((64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4) + 1];
-	a->col.blue = a->redbrick[((64 * a->floor_tex_y
+	a->col.blue = a->rb[((64 * a->floor_tex_y
 		+ a->floor_tex_x) * 4) + 0];
 	color_one_pixel(a, pixel);
 }

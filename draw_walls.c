@@ -17,19 +17,19 @@ static void		draw_north_south_walls(t_all *a)
 	if (a->x_step > 0)
 	{
 		a->col.transp = 0;
-		a->col.red = (unsigned char)(a->wood[(64 * a->tex_y
+		a->col.red = (unsigned char)(a->wd[(64 * a->tex_y
 			+ a->tex_x) * 4 + 2]) / 2;
-		a->col.green = (unsigned char)(a->wood[((64 * a->tex_y
+		a->col.green = (unsigned char)(a->wd[((64 * a->tex_y
 			+ a->tex_x) * 4) + 1]) / 2;
-		a->col.blue = (unsigned char)(a->wood[((64 * a->tex_y
+		a->col.blue = (unsigned char)(a->wd[((64 * a->tex_y
 			+ a->tex_x) * 4) + 0]) / 2;
 	}
 	else
 	{
 		a->col.transp = 0;
-		a->col.red = a->mossy[(64 * a->tex_y + a->tex_x) * 4 + 2];
-		a->col.green = a->mossy[((64 * a->tex_y + a->tex_x) * 4) + 1];
-		a->col.blue = a->mossy[((64 * a->tex_y + a->tex_x) * 4) + 0];
+		a->col.red = a->m[(64 * a->tex_y + a->tex_x) * 4 + 2];
+		a->col.green = a->m[((64 * a->tex_y + a->tex_x) * 4) + 1];
+		a->col.blue = a->m[((64 * a->tex_y + a->tex_x) * 4) + 0];
 	}
 }
 
@@ -38,16 +38,16 @@ static void		draw_east_west_walls(t_all *a)
 	if (a->y_step > 0)
 	{
 		a->col.transp = 0;
-		a->col.red = a->greystone[(64 * a->tex_y + a->tex_x) * 4 + 2];
-		a->col.green = a->greystone[((64 * a->tex_y + a->tex_x) * 4) + 1];
-		a->col.blue = a->greystone[((64 * a->tex_y + a->tex_x) * 4) + 0];
+		a->col.red = a->gs[(64 * a->tex_y + a->tex_x) * 4 + 2];
+		a->col.green = a->gs[((64 * a->tex_y + a->tex_x) * 4) + 1];
+		a->col.blue = a->gs[((64 * a->tex_y + a->tex_x) * 4) + 0];
 	}
 	else
 	{
 		a->col.transp = 0;
-		a->col.red = a->colorstone[(64 * a->tex_y + a->tex_x) * 4 + 2];
-		a->col.green = a->colorstone[((64 * a->tex_y + a->tex_x) * 4) + 1];
-		a->col.blue = a->colorstone[((64 * a->tex_y + a->tex_x) * 4) + 0];
+		a->col.red = a->cs[(64 * a->tex_y + a->tex_x) * 4 + 2];
+		a->col.green = a->cs[((64 * a->tex_y + a->tex_x) * 4) + 1];
+		a->col.blue = a->cs[((64 * a->tex_y + a->tex_x) * 4) + 0];
 	}
 }
 

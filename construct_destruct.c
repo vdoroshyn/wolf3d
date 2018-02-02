@@ -19,6 +19,16 @@ void	construct(t_all *a)
 	if (!(a->win = mlx_new_window(a->mlx, a->win_x, a->win_y, "window")))
 		exit(0);
 	load_textures(a);
+	a->direction_x = -1;
+	a->direction_y = 0;
+	a->perp_dir_x = 0;
+	a->perp_dir_y = 0.66;
+	a->time = 0;
+	a->old_time = 0;
+	a->is_rotating = 0;
+	a->is_moving = 0;
+	a->is_sprinting = 0;
+	a->is_music_playing = 0;
 }
 
 void	destruct(t_all *a)
