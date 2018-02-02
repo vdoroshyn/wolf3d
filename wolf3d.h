@@ -17,6 +17,14 @@
 # include "mlx.h"
 # include <time.h>
 
+typedef struct		s_color
+{
+	unsigned char	transp;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}					t_color;
+
 typedef struct		s_all
 {
 	int				map_w;
@@ -56,11 +64,28 @@ typedef struct		s_all
 
 	double			wall_x;
 	int				tex_x;
+	int				tex_y;
+	int				avoid_floats;
+	double			floor_x_wall;
+	double			floor_y_wall;
+	double			dist_to_wall;
+	double			dist_to_player;
+	double			current_dist;
+	double			weight;
+	double			current_floor_x;
+	double			current_floor_y;
+	int				floor_tex_x;
+	int				floor_tex_y;
 
 	int				x_step;
 	int				y_step;
 	int				hit;
 	int				side;
+
+	int				line_h;
+	int				draw_start;
+	int				draw_end;
+	t_color			col;
 
 	double			delta_time;
 	double			ms;
@@ -84,14 +109,6 @@ typedef struct		s_all
 	char			*gun;
 }					t_all;
 
-typedef struct		s_color
-{
-	unsigned char	transp;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-}					t_color;
-
 void				construct(t_all *a);
 void				destruct(t_all *a);
 void				create_new_image(t_all *a);
@@ -110,8 +127,10 @@ void				rotate(t_all *a, int flag);
 
 void				music_manager(t_all *a);
 
-void				color_one_pixel(t_all *a, int pixel, t_color color);
+void				color_one_pixel(t_all *a, int pixel);
 void				draw(t_all *a, int x);
+void				draw_walls(t_all *a, int x);
+void				draw_floor_and_ceiling(t_all *a, int x);
 void				draw_minimap(t_all *a);
 
 int					reload_window(t_all *a);

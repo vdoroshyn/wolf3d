@@ -12,7 +12,7 @@
 
 NAME = wolf3d
 CC = gcc
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = libft.a
 MLX = -lmlx -framework OpenGL -framework AppKit
 HEADER = wolf3d.h
@@ -20,11 +20,14 @@ HEADER = wolf3d.h
 OBJECTS = wolf3d.o \
 			construct_destruct.o \
 			move.o \
-			bresenham.o \
+			rotate.o \
+			draw_textures.o \
 			first_read.o \
 			second_read.o \
 			map_borders.o \
 			draw_minimap.o \
+			draw_walls.o \
+			draw_floor_ceiling.o \
 
 .PHONY : clean all fclean re
 
@@ -52,11 +55,14 @@ wolf3d.o : wolf3d.c $(HEADER)
 construct_destruct.o : construct_destruct.c $(HEADER)
 	$(CC) $(CFLAGS) -c construct_destruct.c wolf3d.h
 
-move.o : move.c $(HEADER)
-	$(CC) $(CFLAGS) -c move.c wolf3d.h
+draw_textures.o : draw_textures.c $(HEADER)
+	$(CC) $(CFLAGS) -c draw_textures.c wolf3d.h
 
-bresenham.o : bresenham.c $(HEADER)
-	$(CC) $(CFLAGS) -c bresenham.c wolf3d.h
+draw_walls.o : draw_walls.c $(HEADER)
+	$(CC) $(CFLAGS) -c draw_walls.c wolf3d.h
+
+draw_floor_ceiling.o : draw_floor_ceiling.c $(HEADER)
+	$(CC) $(CFLAGS) -c draw_floor_ceiling.c wolf3d.h
 
 first_read.o : first_read.c $(HEADER)
 	$(CC) $(CFLAGS) -c first_read.c wolf3d.h
@@ -69,3 +75,9 @@ map_borders.o : map_borders.c $(HEADER)
 
 draw_minimap.o : draw_minimap.c $(HEADER)
 	$(CC) $(CFLAGS) -c draw_minimap.c wolf3d.h
+
+move.o : move.c $(HEADER)
+	$(CC) $(CFLAGS) -c move.c wolf3d.h
+
+rotate.o : rotate.c $(HEADER)
+	$(CC) $(CFLAGS) -c rotate.c wolf3d.h

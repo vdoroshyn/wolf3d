@@ -12,38 +12,98 @@
 
 #include "wolf3d.h"
 
-// void			move(t_all *a, int keycode)
-// {
-// 	if (keycode == 123)
-// 	{
-// 		  double oldDirX = a->dirX;
-// 		  a->dirX = a->dirX * cos(a->rotSpeed) - a->dirY * sin(a->rotSpeed);
-// 		  a->dirY = oldDirX * sin(a->rotSpeed) + a->dirY * cos(a->rotSpeed);
-// 		  double oldPlaneX = a->planeX;
-// 		  a->planeX = a->planeX * cos(a->rotSpeed) - a->planeY * sin(a->rotSpeed);
-// 		  a->planeY = oldPlaneX * sin(a->rotSpeed) + a->planeY * cos(a->rotSpeed);
-// 	}
-// 	else if (keycode == 124)
-// 	{
-// 		  double oldDirX = a->dirX;
-// 		  a->dirX = a->dirX * cos(-a->rotSpeed) - a->dirY * sin(-a->rotSpeed);
-// 		  a->dirY = oldDirX * sin(-a->rotSpeed) + a->dirY * cos(-a->rotSpeed);
-// 		  double oldPlaneX = a->planeX;
-// 		  a->planeX = a->planeX * cos(-a->rotSpeed) - a->planeY * sin(-a->rotSpeed);
-// 		  a->planeY = oldPlaneX * sin(-a->rotSpeed) + a->planeY * cos(-a->rotSpeed);
-// 	}
-// 	else if (keycode == 125)
-// 	{
-// 		if(!(worldMap[(int)(a->posX - a->dirX * a->moveSpeed)][(int)a->posY]))
-// 			a->posX -= a->dirX * a->moveSpeed;
-//   		if(!(worldMap[(int)a->posX][(int)(a->posY - a->dirY * a->moveSpeed)]))
-//   			a->posY -= a->dirY * a->moveSpeed;
-// 	}
-// 	else if (keycode == 126)
-// 	{
-// 		if(!(worldMap[(int)(a->posX + a->dirX * a->moveSpeed)][(int)a->posY]))
-// 			a->posX += a->dirX * a->moveSpeed;
-//  		if(!(worldMap[(int)a->posX][(int)(a->posY + a->dirY * a->moveSpeed)]))
-//  			a->posY += a->dirY * a->moveSpeed;
-// 	}
-// }
+static void		move_backwards(t_all *a)
+{
+	int i;
+	int j;
+
+	i = (int)(a->position_x - (a->direction_x * a->ms) * 3);
+	j = (int)a->position_y;
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_x -= a->direction_x * a->ms;
+	}
+	i = (int)a->position_x;
+	j = (int)(a->position_y - (a->direction_y * a->ms) * 3);
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_y -= a->direction_y * a->ms;
+	}
+}
+
+static void		move_forward(t_all *a)
+{
+	int i;
+	int j;
+
+	i = (int)(a->position_x + (a->direction_x * a->ms) * 3);
+	j = (int)a->position_y;
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_x += a->direction_x * a->ms;
+	}
+	i = (int)a->position_x;
+	j = (int)(a->position_y + (a->direction_y * a->ms) * 3);
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_y += a->direction_y * a->ms;
+	}
+}
+
+static void		strafe_left(t_all *a)
+{
+	int i;
+	int j;
+
+	i = (int)(a->position_x - (a->perp_dir_x * a->ms) * 3);
+	j = (int)a->position_y;
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_x -= a->perp_dir_x * a->ms;
+	}
+	i = (int)a->position_x;
+	j = (int)(a->position_y - (a->perp_dir_y * a->ms) * 3);
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_y -= a->perp_dir_y * a->ms;
+	}
+}
+
+static void		strafe_right(t_all *a)
+{
+	int i;
+	int j;
+
+	i = (int)(a->position_x + (a->perp_dir_x * a->ms) * 3);
+	j = (int)a->position_y;
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_x += a->perp_dir_x * a->ms;
+	}
+	i = (int)a->position_x;
+	j = (int)(a->position_y + (a->perp_dir_y * a->ms) * 3);
+	if ((a->map[i][j]) == '0')
+	{
+		a->position_y += a->perp_dir_y * a->ms;
+	}
+}
+
+void			move(t_all *a, int flag)
+{
+	if (flag == 1)
+	{
+		move_backwards(a);
+	}
+	else if (flag == 2)
+	{
+		move_forward(a);
+	}
+	else if (flag == 3)
+	{
+		strafe_left(a);
+	}
+	else if (flag == 4)
+	{
+		strafe_right(a);
+	}
+}

@@ -12,7 +12,7 @@
 
 #include "wolf3d.h"
 
-int		is_player(char c)
+int				is_player(char c)
 {
 	if (c != 'P')
 	{

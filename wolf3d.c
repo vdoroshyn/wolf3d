@@ -191,60 +191,6 @@ void				load_window(t_all *a)
 	
 }
 
-void			move(t_all *a, int flag)
-{
-	if (flag == 1)
-	{
-		if((a->map[(int)(a->position_x - (a->direction_x * a->ms) * 3)][(int)a->position_y]) == '0')
-			a->position_x -= a->direction_x * a->ms;
-  		if((a->map[(int)a->position_x][(int)(a->position_y - (a->direction_y * a->ms) * 3)]) == '0')
-  			a->position_y -= a->direction_y * a->ms;
-	}
-	else if (flag == 2)
-	{
-		if((a->map[(int)(a->position_x + (a->direction_x * a->ms) * 3)][(int)a->position_y]) == '0')
-			a->position_x += a->direction_x * a->ms;
- 		if((a->map[(int)a->position_x][(int)(a->position_y + (a->direction_y * a->ms) * 3)]) == '0')
- 			a->position_y += a->direction_y * a->ms;
-	}
-	else if (flag == 3)
-	{
-		if((a->map[(int)(a->position_x - (a->perp_dir_x * a->ms) * 3)][(int)a->position_y]) == '0')
-			a->position_x -= a->perp_dir_x * a->ms;
-  		if((a->map[(int)a->position_x][(int)(a->position_y - (a->perp_dir_y * a->ms) * 3)]) == '0')
-  			a->position_y -= a->perp_dir_y * a->ms;
-	}
-	else if (flag == 4)
-	{
-		if((a->map[(int)(a->position_x + (a->perp_dir_x * a->ms) * 3)][(int)a->position_y]) == '0')
-			a->position_x += a->perp_dir_x * a->ms;
- 		if((a->map[(int)a->position_x][(int)(a->position_y + (a->perp_dir_y * a->ms) * 3)]) == '0')
- 			a->position_y += a->perp_dir_y * a->ms;
-	}
-}
-
-void			rotate(t_all *a, int flag)
-{
-	if (flag == 1)
-	{
-		  double oldDirX = a->direction_x;
-		  a->direction_x = a->direction_x * cos(a->rotation_speed) - a->direction_y * sin(a->rotation_speed);
-		  a->direction_y = oldDirX * sin(a->rotation_speed) + a->direction_y * cos(a->rotation_speed);
-		  double oldPlaneX = a->perp_dir_x;
-		  a->perp_dir_x = a->perp_dir_x * cos(a->rotation_speed) - a->perp_dir_y * sin(a->rotation_speed);
-		  a->perp_dir_y = oldPlaneX * sin(a->rotation_speed) + a->perp_dir_y * cos(a->rotation_speed);
-	}
-	else if (flag == 2)
-	{
-		  double oldDirX = a->direction_x;
-		  a->direction_x = a->direction_x * cos(-a->rotation_speed) - a->direction_y * sin(-a->rotation_speed);
-		  a->direction_y = oldDirX * sin(-a->rotation_speed) + a->direction_y * cos(-a->rotation_speed);
-		  double oldPlaneX = a->perp_dir_x;
-		  a->perp_dir_x = a->perp_dir_x * cos(-a->rotation_speed) - a->perp_dir_y * sin(-a->rotation_speed);
-		  a->perp_dir_y = oldPlaneX * sin(-a->rotation_speed) + a->perp_dir_y * cos(-a->rotation_speed);
-	}
-}
-
 void	load_textures(t_all *a)
 {
 	void *tex[6];

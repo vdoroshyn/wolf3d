@@ -14,7 +14,7 @@
 
 static int		is_not_wall(char c)
 {
-	if (c == '0' || c == 'P')
+	if (c == '0' || is_player(c))
 	{
 		return (1);
 	}
